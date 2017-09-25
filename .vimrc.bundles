@@ -126,9 +126,8 @@ call plug#begin('~/.vim/bundle')
             Plug 'tpope/vim-fugitive'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
-            Plug 'scrooloose/nerdcommenter'
-            Plug 'tpope/vim-commentary'
             Plug 'godlygeek/tabular'
+            Plug 'tomtom/tcomment_vim'
             Plug 'luochen1990/rainbow'
             if executable('ctags')
                 Plug 'majutsushi/tagbar'
