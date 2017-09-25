@@ -84,7 +84,6 @@ call plug#begin('~/.vim/bundle')
 
     " General {
         if count(g:spf13_bundle_groups, 'general')
-            Plug 'scrooloose/nerdtree'
             Plug 'altercation/vim-colors-solarized'
             Plug 'spf13/vim-colors'
             Plug 'tpope/vim-surround'
@@ -107,7 +106,6 @@ call plug#begin('~/.vim/bundle')
             Plug 'powerline/fonts'
             Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
-            Plug 'jistr/vim-nerdtree-tabs'
             Plug 'flazz/vim-colorschemes'
             Plug 'mbbill/undotree'
             Plug 'nathanaelkane/vim-indent-guides'
