@@ -77,11 +77,6 @@ call plug#begin('~/.vim/bundle')
         let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
     endif
 
-    " To override all the included bundles, add the following to your
-    " .vimrc.bundles.local file:
-    "   let g:override_spf13_bundles = 1
-    if !exists("g:override_spf13_bundles")
-
     " General {
         if count(g:spf13_bundle_groups, 'general')
             Plug 'altercation/vim-colors-solarized'
@@ -272,10 +267,6 @@ call plug#begin('~/.vim/bundle')
             Plug 'saltstack/salt-vim'
         endif
     " }
-
-    endif
-
-" }
 
 " Use fork bundles config if available {
     if filereadable(expand("~/.vimrc.bundles.fork"))
