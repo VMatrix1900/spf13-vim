@@ -83,7 +83,9 @@ call plug#begin('~/.vim/bundle')
             Plug 'rhysd/conflict-marker.vim'
             Plug 'jiangmiao/auto-pairs'
             Plug 'terryma/vim-multiple-cursors'
-            Plug 'vim-scripts/sessionman.vim'
+            Plug 'xolox/vim-session'
+            Plug 'xolox/vim-misc'
+            set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
             Plug 'vim-scripts/matchit.zip'
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}

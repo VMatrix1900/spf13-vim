@@ -575,15 +575,6 @@
         endif
     " }
 
-    " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
-            nmap <leader>sl :SessionList<CR>
-            nmap <leader>ss :SessionSave<CR>
-            nmap <leader>sc :SessionClose<CR>
-        endif
-    " }
-
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
         let g:vim_json_syntax_conceal = 0
