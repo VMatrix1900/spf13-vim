@@ -85,7 +85,8 @@ call plug#begin('~/.vim/bundle')
     " General {
         if count(g:spf13_bundle_groups, 'general')
             Plug 'altercation/vim-colors-solarized'
-            Plug 'spf13/vim-colors'
+            let g:solarized_termcolors=256
+            let g:solarized_termtrans=1
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
@@ -104,7 +105,6 @@ call plug#begin('~/.vim/bundle')
             Plug 'powerline/fonts'
             Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
-            Plug 'flazz/vim-colorschemes'
             Plug 'mbbill/undotree'
             Plug 'nathanaelkane/vim-indent-guides'
             if !exists('g:spf13_no_views')
