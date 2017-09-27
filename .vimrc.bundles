@@ -133,7 +133,7 @@ call plug#begin('~/.vim/bundle')
             if executable('ctags')
                 Plug 'majutsushi/tagbar'
             endif
-            if executable('cscope.vim')
+            if executable('cscope')
                 Plug 'brookhong/cscope.vim'
             endif
         endif
@@ -265,7 +265,6 @@ call plug#begin('~/.vim/bundle')
         if count(g:spf13_bundle_groups, 'scala')
             Plug 'derekwyatt/vim-scala'
             Plug 'derekwyatt/vim-sbt'
-            Plug 'xptemplate'
         endif
     " }
 
@@ -286,7 +285,7 @@ call plug#begin('~/.vim/bundle')
 
     " HTML {
         if count(g:spf13_bundle_groups, 'html')
-            Plug 'vim-scripts/HTML-AutoCloseTag'
+            Plug 'heracek/HTML-AutoCloseTag'
             Plug 'hail2u/vim-css3-syntax'
             Plug 'gorodinskiy/vim-coloresque'
             Plug 'tpope/vim-haml'
