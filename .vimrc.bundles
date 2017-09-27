@@ -125,7 +125,6 @@ call plug#begin('~/.vim/bundle')
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             Plug 'w0rp/ale'
-            Plug 'tpope/vim-fugitive'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
             Plug 'godlygeek/tabular'
