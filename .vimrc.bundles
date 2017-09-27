@@ -156,6 +156,24 @@ call plug#begin('~/.vim/bundle')
             Plug 'Shougo/neosnippet'
             Plug 'Shougo/neosnippet-snippets'
             Plug 'honza/vim-snippets'
+        elseif count(g:spf13_bundle_groups, 'lsp')
+            Plug 'prabirshrestha/asyncomplete.vim'
+            Plug 'prabirshrestha/async.vim'
+            Plug 'prabirshrestha/vim-lsp'
+            Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+            Plug 'SirVer/ultisnips'
+            Plug 'honza/vim-snippets'
+            Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+            " remap Ultisnips for compatibility
+            let g:UltiSnipsExpandTrigger = '<C-j>'
+            let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+            let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+            call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+                    \ 'name': 'ultisnips',
+                    \ 'whitelist': ['*'],
+                    \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+                    \ }))
         endif
     " }
 
