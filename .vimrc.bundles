@@ -504,6 +504,10 @@ call plug#begin('~/.vim/bundle')
         if count(g:spf13_bundle_groups, 'python')
             Plug 'yssource/python.vim'
             Plug 'vim-scripts/python_match.vim'
+            
+            if executable('yapf')
+                autocmd FileType python set formatprg=yapf
+            endif
         endif
     " }
 
