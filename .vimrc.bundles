@@ -94,7 +94,7 @@ call plug#begin('~/.vim/bundle')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/vim-powerline'
-            else
+            elseif exists('g:spf13_use_airline')
                 Plug 'vim-airline/vim-airline'
                 Plug 'vim-airline/vim-airline-themes'
                 " Set configuration options for the statusline plugin vim-airline.
@@ -115,6 +115,30 @@ call plug#begin('~/.vim/bundle')
                     let g:airline_left_sep='›'  " Slightly fancier than '>'
                     let g:airline_right_sep='‹' " Slightly fancier than '<'
                 endif
+            else
+                Plug 'itchyny/lightline.vim'
+                Plug 'maximbaz/lightline-ale'
+                let g:lightline = {
+                            \ 'colorscheme': 'solarized',
+                            \ 'active': {
+                            \   'left': [ ['paste'],
+                            \               [ 'gitbranch', 'readonly', 'filename', 'modified' ]],
+                            \   'right': [ ['linter_errors', 'linter_warnings', 'linter_ok' ] ],
+                            \},
+                            \ 'component_function': {
+                            \   'gitbranch': 'fugitive#head',
+                            \},
+                            \ 'component_expand': {
+							\   'linter_warnings': 'lightline#ale#warnings',
+							\   'linter_errors': 'lightline#ale#errors',
+							\   'linter_ok': 'lightline#ale#ok',
+							\},
+                            \ 'component_type': {
+							\   'linter_warnings': 'warning',
+							\   'linter_errors': 'error',
+							\   'linter_ok': 'left',
+                            \},
+                            \}
             endif
             Plug 'powerline/fonts'
             Plug 'bling/vim-bufferline'
@@ -173,6 +197,7 @@ call plug#begin('~/.vim/bundle')
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             Plug 'w0rp/ale'
+            Plug 'tpope/vim-fugitive'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
             Plug 'godlygeek/tabular'
