@@ -70,7 +70,7 @@ call plug#begin('~/.vim/bundle')
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'writing', 'deoplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+        let g:spf13_bundle_groups=['general', 'writing', 'ncm', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
     endif
 
     " General {
@@ -311,6 +311,21 @@ call plug#begin('~/.vim/bundle')
             imap <expr><TAB> pumvisible() ? "\<C-n>" : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>")
             imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
             imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
+        elseif count(g:spf13_bundle_groups, 'ncm')
+            Plug 'roxma/nvim-completion-manager'
+            Plug 'SirVer/ultisnips'
+            Plug 'honza/vim-snippets'
+			let g:UltiSnipsExpandTrigger		= "<tab>"
+			let g:UltiSnipsJumpForwardTrigger	= "<tab>"
+			let g:UltiSnipsJumpBackwardTrigger	= "<s-tab>"
+			let g:UltiSnipsRemoveSelectModeMappings = 0
+            imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+            imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+            inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+            inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+            if !has('nvim')
+                Plug 'roxma/vim-hug-neovim-rpc', { 'do': 'pip3 install --upgrade neovim' }
+            endif
         elseif count(g:spf13_bundle_groups, 'lsp')
             Plug 'prabirshrestha/asyncomplete.vim'
             Plug 'prabirshrestha/async.vim'
