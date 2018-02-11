@@ -315,14 +315,14 @@ call plug#begin('~/.vim/bundle')
             Plug 'roxma/nvim-completion-manager'
             Plug 'SirVer/ultisnips'
             Plug 'honza/vim-snippets'
-			let g:UltiSnipsExpandTrigger		= "<tab>"
-			let g:UltiSnipsJumpForwardTrigger	= "<tab>"
-			let g:UltiSnipsJumpBackwardTrigger	= "<s-tab>"
+			let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+			let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+			let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 			let g:UltiSnipsRemoveSelectModeMappings = 0
             imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-            imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
-            inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-            inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+            imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<c-u>":"\<CR>")
+            " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+            " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
             if !has('nvim')
                 Plug 'roxma/vim-hug-neovim-rpc', { 'do': 'pip3 install --upgrade neovim' }
             endif
