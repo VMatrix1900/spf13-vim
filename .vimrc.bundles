@@ -326,6 +326,22 @@ call plug#begin('~/.vim/bundle')
             if !has('nvim')
                 Plug 'roxma/vim-hug-neovim-rpc', { 'do': 'pip3 install --upgrade neovim' }
             endif
+
+            Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
+            let g:LanguageClient_serverCommands= {
+                        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+                        \ 'javascript': ['javascript-typescript-stdio'],
+                        \ 'javascript.jsx': ['javascript-typescript-stdio'],
+                        \ 'python': ['pyls'],
+                        \ 'go': ['go-langserver', '-mode', 'stdio'],
+                        \ 'dart': ['dart_language_server'],
+                        \ 'c': ['clangd'],
+                        \ 'cpp': ['clangd'],
+                        \ 'html': ['html-languageserver', '-stdio'],
+                        \ 'haskell': ['hie', '--lsp'],
+                        \ }
+            set formatexpr=LanguageClient_textDocument_rangeFormatting()
+            nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
         elseif count(g:spf13_bundle_groups, 'lsp')
             Plug 'prabirshrestha/asyncomplete.vim'
             Plug 'prabirshrestha/async.vim'
