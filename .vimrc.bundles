@@ -23,11 +23,6 @@
 
 " Environment {
 
-    " Basics {
-        set nocompatible        " Must be first line
-        set background=dark     " Assume a dark background
-    " }
-
     " Windows Compatible {
         " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
         " across (heterogeneous) systems easier.
@@ -70,7 +65,7 @@ call plug#begin('~/.vim/bundle')
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'writing', 'ncm', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+        let g:spf13_bundle_groups=['general', 'writing', 'deoplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
     endif
 
     " General {
@@ -90,56 +85,29 @@ call plug#begin('~/.vim/bundle')
             Plug 'vim-scripts/matchit.zip'
             let b:match_ignorecase = 1
 
-            if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
-                Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
-            elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
-                Plug 'Lokaltog/vim-powerline'
-            elseif exists('g:spf13_use_airline')
-                Plug 'vim-airline/vim-airline'
-                Plug 'vim-airline/vim-airline-themes'
-                " Set configuration options for the statusline plugin vim-airline.
-                " Use the powerline theme and optionally enable powerline symbols.
-                " To use the symbols , , , , , , and .in the statusline
-                " segments add the following to your .vimrc.before.local file:
-                "   let g:airline_powerline_fonts=1
-                " If the previous symbols do not render for you then install a
-                " powerline enabled font.
-
-                " See `:echo g:airline_theme_map` for some more choices
-                " Default in terminal vim is 'dark'
-                if !exists('g:airline_theme')
-                    let g:airline_theme = 'solarized'
-                endif
-                if !exists('g:airline_powerline_fonts')
-                    " Use the default set of separators with a few customizations
-                    let g:airline_left_sep='›'  " Slightly fancier than '>'
-                    let g:airline_right_sep='‹' " Slightly fancier than '<'
-                endif
-            else
-                Plug 'itchyny/lightline.vim'
-                Plug 'maximbaz/lightline-ale'
-                let g:lightline = {
-                            \ 'colorscheme': 'solarized',
-                            \ 'active': {
-                            \   'left': [ ['paste'],
-                            \               [ 'gitbranch', 'readonly', 'filename', 'modified' ]],
-                            \   'right': [ ['linter_errors', 'linter_warnings', 'linter_ok' ] ],
-                            \},
-                            \ 'component_function': {
-                            \   'gitbranch': 'fugitive#head',
-                            \},
-                            \ 'component_expand': {
-							\   'linter_warnings': 'lightline#ale#warnings',
-							\   'linter_errors': 'lightline#ale#errors',
-							\   'linter_ok': 'lightline#ale#ok',
-							\},
-                            \ 'component_type': {
-							\   'linter_warnings': 'warning',
-							\   'linter_errors': 'error',
-							\   'linter_ok': 'left',
-                            \},
-                            \}
-            endif
+            Plug 'itchyny/lightline.vim'
+            Plug 'maximbaz/lightline-ale'
+            let g:lightline = {
+                        \ 'colorscheme': 'solarized',
+                        \ 'active': {
+                        \   'left': [ ['paste'],
+                        \               [ 'gitbranch', 'readonly', 'filename', 'modified' ]],
+                        \   'right': [ ['linter_errors', 'linter_warnings', 'linter_ok' ] ],
+                        \},
+                        \ 'component_function': {
+                        \   'gitbranch': 'fugitive#head',
+                        \},
+                        \ 'component_expand': {
+                        \   'linter_warnings': 'lightline#ale#warnings',
+                        \   'linter_errors': 'lightline#ale#errors',
+                        \   'linter_ok': 'lightline#ale#ok',
+                        \},
+                        \ 'component_type': {
+                        \   'linter_warnings': 'warning',
+                        \   'linter_errors': 'error',
+                        \   'linter_ok': 'left',
+                        \},
+                        \}
             Plug 'powerline/fonts'
             Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
@@ -225,72 +193,11 @@ call plug#begin('~/.vim/bundle')
             Plug 'majutsushi/tagbar'
             nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
-            Plug 'brookhong/cscope.vim'
         endif
     " }
 
     " Snippets & AutoComplete {
-        if count(g:spf13_bundle_groups, 'snipmate')
-            Plug 'garbas/vim-snipmate'
-            " Setting the author var
-            " If forking, please overwrite in your .vimrc.local file
-            let g:snips_author = 'Steve Francia <steve.francia@gmail.com>'
-
-            Plug 'honza/vim-snippets'
-            " Source support_function.vim to support vim-snippets.
-            if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-                source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-            endif
-        elseif count(g:spf13_bundle_groups, 'youcompleteme')
-            Plug 'Valloric/YouCompleteMe'
-            Plug 'SirVer/ultisnips'
-            Plug 'honza/vim-snippets'
-
-            let g:acp_enableAtStartup = 0
-
-            " enable completion from tags
-            let g:ycm_collect_identifiers_from_tags_files = 1
-
-            " enable complete when 2 characters are typed.
-            let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-
-
-            " remap Ultisnips for compatibility for YCM
-            let g:UltiSnipsExpandTrigger = '<C-j>'
-            let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-            let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-
-            " Enable omni completion.
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-            " Haskell post write lint and check with ghcmod
-            " $ `cabal install ghcmod` if missing and ensure
-            " ~/.cabal/bin is in your $PATH.
-            if !executable("ghcmod")
-                autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-            endif
-
-            " For snippet_complete marker.
-            if !exists("g:spf13_no_conceal")
-                if has('conceal')
-                    set conceallevel=2 concealcursor=i
-                endif
-            endif
-
-            " Disable the neosnippet preview candidate window
-            " When enabled, there can be too much visual noise
-            " especially when splits are used.
-            set completeopt-=preview
-
-        elseif count(g:spf13_bundle_groups, 'deoplete')
+        if count(g:spf13_bundle_groups, 'deoplete')
             if has('nvim')
                 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
             else
@@ -311,6 +218,23 @@ call plug#begin('~/.vim/bundle')
             imap <expr><TAB> pumvisible() ? "\<C-n>" : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>")
             imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
             imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
+            set completeopt-=preview
+
+            Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
+            let g:LanguageClient_serverCommands= {
+                        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+                        \ 'javascript': ['javascript-typescript-stdio'],
+                        \ 'javascript.jsx': ['javascript-typescript-stdio'],
+                        \ 'python': ['pyls'],
+                        \ 'go': ['go-langserver', '-mode', 'stdio'],
+                        \ 'dart': ['dart_language_server'],
+                        \ 'c': ['clangd'],
+                        \ 'cpp': ['clangd'],
+                        \ 'html': ['html-languageserver', '-stdio'],
+                        \ 'haskell': ['hie', '--lsp'],
+                        \ }
+            nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+
         elseif count(g:spf13_bundle_groups, 'ncm')
             Plug 'roxma/nvim-completion-manager'
             Plug 'SirVer/ultisnips'
@@ -342,6 +266,7 @@ call plug#begin('~/.vim/bundle')
                         \ }
             set formatexpr=LanguageClient_textDocument_rangeFormatting()
             nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+
         elseif count(g:spf13_bundle_groups, 'lsp')
             Plug 'prabirshrestha/asyncomplete.vim'
             Plug 'prabirshrestha/async.vim'
@@ -436,12 +361,9 @@ call plug#begin('~/.vim/bundle')
     " Python {
         if count(g:spf13_bundle_groups, 'python')
             Plug 'yssource/python.vim'
-            Plug 'vim-scripts/python_match.vim'
-            
-            if executable('yapf')
-                autocmd FileType python set formatprg=yapf
-            endif
         endif
+        Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+        au FileType python setlocal foldmethod=indent
     " }
 
     " Javascript {
@@ -538,11 +460,8 @@ call plug#begin('~/.vim/bundle')
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
             Plug 'rust-lang/rust.vim'
-            Plug 'tpope/vim-markdown'
-            Plug 'spf13/vim-preview'
-            Plug 'tpope/vim-cucumber'
+            Plug 'greyblake/vim-preview'
             Plug 'cespare/vim-toml'
-            Plug 'quentindecock/vim-cucumber-align-pipes'
             Plug 'saltstack/salt-vim'
         endif
     " }
