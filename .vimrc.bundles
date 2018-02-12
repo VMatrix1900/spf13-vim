@@ -65,7 +65,7 @@ call plug#begin('~/.vim/bundle')
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'writing', 'deoplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+        let g:spf13_bundle_groups=['general', 'writing', 'deoplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'rust', 'misc',]
     endif
 
     " General {
@@ -362,8 +362,8 @@ call plug#begin('~/.vim/bundle')
         if count(g:spf13_bundle_groups, 'python')
             Plug 'yssource/python.vim'
         endif
-        Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
         au FileType python setlocal foldmethod=indent
+        au FileType python setlocal formatprg=yapf
     " }
 
     " Javascript {
@@ -421,6 +421,12 @@ call plug#begin('~/.vim/bundle')
         endif
     " }
 
+    " Rust {
+        if count(g:spf13_bundle_groups, 'rust')
+            Plug 'rust-lang/rust.vim'
+        endif
+    " }
+
     " Puppet {
         if count(g:spf13_bundle_groups, 'puppet')
             Plug 'rodjek/vim-puppet'
@@ -459,10 +465,12 @@ call plug#begin('~/.vim/bundle')
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
-            Plug 'rust-lang/rust.vim'
             Plug 'greyblake/vim-preview'
             Plug 'cespare/vim-toml'
             Plug 'saltstack/salt-vim'
+            Plug 'lervag/vimtex'
+            Plug 'peterhoeg/vim-qml'
+            Plug 'digitaltoad/vim-pug'
         endif
     " }
 
