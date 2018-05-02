@@ -81,6 +81,8 @@ call plug#begin('~/.vim/bundle')
             Plug 'xolox/vim-session'
             Plug 'xolox/vim-misc'
             set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+            let g:session_autosave='no'
+            let g:session_autosave_periodic='yes'
 
             Plug 'vim-scripts/matchit.zip'
             let b:match_ignorecase = 1
