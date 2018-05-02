@@ -241,12 +241,10 @@
 
 " Key (re)Mappings {
 
-    " The default leader is '\', but many people prefer ',' as it's in a standard
-    " location. To override this behavior and set it back to '\' (or any other
-    " character) add the following to your .vimrc.before.local file:
-    "   let g:spf13_leader='\'
+    " The default leader is ' '. To set it to any other character, add the
+    " following to your .vimrc.before.local file: let g:spf13_leader='\'
     if !exists('g:spf13_leader')
-        let mapleader = ','
+        let mapleader = ' '
     else
         let mapleader=g:spf13_leader
     endif
