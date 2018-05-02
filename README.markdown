@@ -142,7 +142,6 @@ It fixes many of the inconveniences of vanilla vim including
  * Fixes common typos like :W, :Q, etc
  * Setup a solid set of settings for Formatting (change to meet your needs)
  * Setup the interface to take advantage of vim's features including
-   * omnicomplete
    * line numbers
    * syntax highlighting
    * A better ruler & status line
