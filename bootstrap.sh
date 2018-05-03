@@ -20,7 +20,6 @@ app_name='spf13-vim'
 [ -z "$REPO_URI" ] && REPO_URI='https://github.com/VMatrix1900/spf13-vim.git'
 [ -z "$REPO_BRANCH" ] && REPO_BRANCH='4.0'
 debug_mode='0'
-fork_maintainer='0'
 [ -z "$VIM_PLUG_URI" ] && VIM_PLUG_URI="https://github.com/junegunn/vim-plug.git"
 
 ############################  BASIC SETUP TOOLS
@@ -138,25 +137,6 @@ create_symlinks() {
     debug
 }
 
-setup_fork_mode() {
-    local source_path="$2"
-    local target_path="$3"
-
-    if [ "$1" -eq '1' ]; then
-        touch "$target_path/.vimrc.fork"
-        touch "$target_path/.vimrc.bundles.fork"
-        touch "$target_path/.vimrc.before.fork"
-
-        lnif "$source_path/.vimrc.fork"         "$target_path/.vimrc.fork"
-        lnif "$source_path/.vimrc.bundles.fork" "$target_path/.vimrc.bundles.fork"
-        lnif "$source_path/.vimrc.before.fork"  "$target_path/.vimrc.before.fork"
-
-        ret="$?"
-        success "Created fork maintainer files."
-        debug
-    fi
-}
-
 setup_vim_plug() {
     local system_shell="$SHELL"
     export SHELL='/bin/sh'
@@ -189,10 +169,6 @@ sync_repo       "$APP_PATH" \
                 "$app_name"
 
 create_symlinks "$APP_PATH" \
-                "$HOME"
-
-setup_fork_mode "$fork_maintainer" \
-                "$APP_PATH" \
                 "$HOME"
 
 sync_repo       "$HOME/.vim/autoload" \
