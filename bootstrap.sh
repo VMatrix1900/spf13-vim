@@ -200,7 +200,7 @@ sync_repo       "$HOME/.vim/autoload" \
                 "master" \
                 "vim-plug"
 
-setup_vim_plug    "$APP_PATH/.vimrc.bundles.default"
+setup_vim_plug    "$APP_PATH/.vimrc.bundles"
 
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` http://vim.spf13.com/"
