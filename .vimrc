@@ -79,9 +79,9 @@
 
 " }
 
-" Use before config if available {
-    if filereadable(expand("~/.vimrc.before"))
-        source ~/.vimrc.before
+" Use local config if available {
+    if filereadable(expand("~/.vimrc.local"))
+        source ~/.vimrc.local
     endif
 " }
 
@@ -112,7 +112,7 @@
 
     " Most prefer to automatically switch to the current file directory when
     " a new buffer is opened; to prevent this behavior, add the following to
-    " your .vimrc.before.local file:
+    " your .vimrc.local file:
     "   let g:spf13_no_autochdir = 1
     if !exists('g:spf13_no_autochdir')
         autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
@@ -136,7 +136,7 @@
 
     " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
     " Restore cursor to file position in previous editing session
-    " To disable this, add the following to your .vimrc.before.local file:
+    " To disable this, add the following to your .vimrc.local file:
     "   let g:spf13_no_restore_cursor = 1
     if !exists('g:spf13_no_restore_cursor')
         function! ResCur()
@@ -160,7 +160,7 @@
             set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
         endif
 
-        " To disable views add the following to your .vimrc.before.local file:
+        " To disable views add the following to your .vimrc.local file:
         "   let g:spf13_no_views = 1
         if !exists('g:spf13_no_views')
             " Add exclusions to mkview and loadview
@@ -242,7 +242,7 @@
 " Key (re)Mappings {
 
     " The default leader is ' '. To set it to any other character, add the
-    " following to your .vimrc.before.local file: let g:spf13_leader='\'
+    " following to your .vimrc.local file: let g:spf13_leader='\'
     if !exists('g:spf13_leader')
         let mapleader = ' '
     else
@@ -256,7 +256,7 @@
 
     " The default mappings for editing and applying the spf13 configuration
     " are <leader>ev and <leader>sv respectively. Change them to your preference
-    " by adding the following to your .vimrc.before.local file:
+    " by adding the following to your .vimrc.local file:
     "   let g:spf13_edit_config_mapping='<leader>ec'
     "   let g:spf13_apply_config_mapping='<leader>sc'
     if !exists('g:spf13_edit_config_mapping')
@@ -291,7 +291,7 @@
 
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
-    " and off, add the following to your .vimrc.before.local file:
+    " and off, add the following to your .vimrc.local file:
     "   let g:spf13_clear_search_highlight = 1
     if exists('g:spf13_clear_search_highlight')
         nmap <silent> <leader>/ :nohlsearch<CR>
@@ -389,7 +389,7 @@
 
         " To specify a different directory in which to place the vimbackup,
         " vimviews, vimundo, and vimswap files/directories, add the following to
-        " your .vimrc.before.local file:
+        " your .vimrc.local file:
         "   let g:spf13_consolidated_directory = <full path to desired directory>
         "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
         if exists('g:spf13_consolidated_directory')
@@ -442,7 +442,7 @@
 
     function! s:IsSpf13Fork()
         let s:is_fork = 0
-        let s:fork_files = ["~/.vimrc.fork", "~/.vimrc.before.fork", "~/.vimrc.bundles.fork"]
+        let s:fork_files = ["~/.vimrc.fork", "~/.vimrc.bundles.fork"]
         for fork_file in s:fork_files
             if filereadable(expand(fork_file, ":p"))
                 let s:is_fork = 1
@@ -458,21 +458,16 @@
 
     function! s:EditSpf13Config()
         call <SID>ExpandFilenameAndExecute("tabedit", "~/.vimrc")
-        call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.before")
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.bundles")
 
         execute bufwinnr(".vimrc") . "wincmd w"
         call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.local")
-        wincmd l
-        call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.before.local")
         wincmd l
         call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.bundles.local")
 
         if <SID>IsSpf13Fork()
             execute bufwinnr(".vimrc") . "wincmd w"
             call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.fork")
-            wincmd l
-            call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.before.fork")
             wincmd l
             call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.bundles.fork")
         endif

@@ -13,7 +13,7 @@
 "   recommend picking out the parts you want and understand.
 "
 "   This file imports the various plugins of spf13. If you
-"   wish to alter which groups are imported, see vimrc.before.
+"   wish to alter which groups are imported, see vimrc.local.
 "   If you wish to add or remove individual bundles, create
 "   ~/.vimrc.bundles.local and `Bundle` or `UnBundle` as needed
 "   from there.
@@ -62,7 +62,7 @@ call plug#begin('~/.vim/bundle')
         endif
     " }
 
-    " In your .vimrc.before.local file
+    " In your .vimrc.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
         let g:spf13_bundle_groups=['general', 'writing', 'deoplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'rust', 'misc',]
